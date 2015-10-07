@@ -1,0 +1,4 @@
+Localizacao Dnumero integer Dlocal varchar 30 
+TABLE Tteste 
+Localizacao Dnumero integer Dlocal varchar 30 
+TABLE Tteste 
