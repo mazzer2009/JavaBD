@@ -9,6 +9,8 @@ package apsbd;
  *
  * @author emanuel
  */
-public class APSBD {
-   
+public class Arquivo {
+    
+    
+    String
 }
