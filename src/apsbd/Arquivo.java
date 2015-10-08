@@ -14,6 +14,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,20 +34,22 @@ public class Arquivo {
         try {
             dos = new DataOutputStream(new FileOutputStream(nome + ".txt"));
 
-//            byte teste = 2*(byte) 0000;
-            dos.writeShort(0);
-            dos.writeShort(0);
-            dos.writeShort(2048);
+            short a = 0;
+            short b = 8;
+            dos.writeByte(a);
+            dos.writeByte(a);
+            dos.writeByte(a);
+            dos.writeByte(a);
+            dos.writeByte(a);
+            dos.writeByte(b);
 
             int i = 0;
-            while (i < 1021) {
-                dos.writeShort(0);
+            while (i < 2042) {
+                dos.writeByte(0);
                 i++;
             }
             dos.close();
 
-//        byte teste = (byte) 0000; // 10101010 em binário  
-//        byte teste2 = (byte) 0000; // 10101010 em binário  
         } catch (FileNotFoundException ex) {
             ex.printStackTrace();
         } catch (IOException e) {
@@ -55,53 +59,29 @@ public class Arquivo {
 
     public void lerByte_a_Byte() {
         File f = new File("testando.txt");
-        byte[] b = new byte[1024];
+        byte[] b = new byte[8];
         int i = 0;
         FileInputStream fi = null;
         try {
             fi = new FileInputStream(f);
-//            i = fi.read(b);
+//            fi.read(b);
             while ((i = fi.read(b)) > -1) {
-                for (int j = 0; j < i; j+=2) {
-                    String msgDecode  = new String(b, "UTF-8");
-                    System.out.println("O byte #" + j + " é = " + b[j] + b[j+1]);
-                }
-            }
-            fi.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (IOException ex){
-            ex.printStackTrace();
-        }
-    }
-    
-     public void ler4Bytes() {
-        File f = new File("testando.txt");
-        byte[] b = new byte[4];
-        int i = 0;
-        FileInputStream fi = null;
-        try {
-            fi = new FileInputStream(f);
-//            i = fi.read(b);
-            
-            while (fi.read(b) > -1){
-                
-            System.out.println("byte: " + b[1] + b[0] + b[3] + b[2]);
-            }
-            
-//            while ((i = fi.read(b)) > -1) {
-//                for (int j = 0; j < i; j+=4) {
+//            System.out.println("i=" + i);
+                for (int j = 0; j < 4; j+=1) {
+                    System.out.print(b[j]);
+//                System.out.println("" + b[0] + b[1] + b[2] + b[3] + b[4] + b[5] + b[6] + b[7]);
 //                    String msgDecode  = new String(b, "UTF-8");
-//                    System.out.println("O byte #" + j + " é = " + b[j] + b[j+1] + b[j+2] + b[j+3]);
-//                }
-//            }
+                }
+//                i++;
+            }
             fi.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
+
 
     public String lerArquivo(String caminho) {
         String arquivo = new String();
