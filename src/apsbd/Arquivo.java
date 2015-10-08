@@ -67,7 +67,7 @@ public class Arquivo {
 //            fi.read(b);
             while ((i = fi.read(b)) > -1) {
 //            System.out.println("i=" + i);
-                for (int j = 0; j < 4; j+=1) {
+                for (int j = 0; j < 4; j += 1) {
                     System.out.print(b[j]);
 //                System.out.println("" + b[0] + b[1] + b[2] + b[3] + b[4] + b[5] + b[6] + b[7]);
 //                    String msgDecode  = new String(b, "UTF-8");
@@ -81,7 +81,6 @@ public class Arquivo {
             ex.printStackTrace();
         }
     }
-
 
     public String lerArquivo(String caminho) {
         String arquivo = new String();
@@ -148,4 +147,7 @@ public class Arquivo {
         return true;
     }
 
+    
+    public gravarArquivo()
+ 
 }

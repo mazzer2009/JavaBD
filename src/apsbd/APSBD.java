@@ -20,7 +20,7 @@ public class APSBD {
 //       arq.lerArquivo("teste.sql");
        arq.inicializaArquivo("testando");
 //       arq.lerByte_a_Byte();
-       arq.ler4Bytes();
+       arq.writeint(2048,true);
     }
     
 }
