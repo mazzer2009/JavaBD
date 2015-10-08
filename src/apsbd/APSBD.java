@@ -10,5 +10,17 @@ package apsbd;
  * @author emanuel
  */
 public class APSBD {
-   
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+       Arquivo arq=new Arquivo();
+       // System.out.println(arq.lerArquivo("teste.sql"));
+//       arq.lerArquivo("teste.sql");
+       arq.inicializaArquivo("testando");
+//       arq.lerByte_a_Byte();
+       arq.ler4Bytes();
+    }
+    
 }
