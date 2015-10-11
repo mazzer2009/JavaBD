@@ -5,6 +5,7 @@
  */
 package apsbd;
 
+import Utils.Convert;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -22,12 +23,15 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author emanuel
+ * @author Emanuel & Leonardo
+ * @version 1.0
  */
 public class Arquivo {
 
-    FileReader arq;
-    BufferedReader lerarq;
+    FileReader arquivo;
+    BufferedReader buffArquivo;
+    Tabela table;
+    Campo campo;
 
     public void inicializaArquivo(String nome) {
         DataOutputStream dos = null;
@@ -57,13 +61,13 @@ public class Arquivo {
         }
     }
 
-    public void lerByte_a_Byte() {
-        File f = new File("testando.txt");
-        byte[] b = new byte[8];
+    public void readByte(FileInputStream fi) {
+//        File f = new File(nomeArq);
+        byte[] b = new byte[4];
         int i = 0;
-        FileInputStream fi = null;
+//        FileInputStream fi = null;
         try {
-            fi = new FileInputStream(f);
+//            fi = new FileInputStream(f);
 //            fi.read(b);
             while ((i = fi.read(b)) > -1) {
 //            System.out.println("i=" + i);
@@ -82,21 +86,59 @@ public class Arquivo {
         }
     }
 
+    public Cabecalho getCabecalho(String nomeArq) {
+        Cabecalho c = new Cabecalho();
+        Convert convert = new Convert();
+        File f = new File(nomeArq + ".txt");
+        byte[] b = new byte[4];
+        int i = 0;
+        try {
+
+            FileInputStream fi = new FileInputStream(f);
+            while (i < 3) {
+                fi.read(b);
+                String aux = "";
+                for (int j = 0; j < 4; j += 1) {
+                    aux += b[j];
+//                    System.out.print(b[j]);
+                }
+                if (i == 0){
+                    int aux2 = convert.convert2Int(b);
+                c.setQtdeRegistros(aux2);
+                    
+                }else if (i == 1){
+                    c.setDeslocamentoStByte(b);
+                }else{
+                    int aux2 = convert.convert2Int(b);
+                    c.setQtdeRegistrosExcluidos(aux2);
+                }
+//                System.out.println("");
+                i++;
+            }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return c;
+    }
+
     public String lerArquivo(String caminho) {
         String arquivo = new String();
         String vetor[];
         String vetorTAB[] = null;
         ArrayList<String> tabelas = new ArrayList<>();
         try {
-            arq = new FileReader(caminho);
-            lerarq = new BufferedReader(arq);
-            String linha = lerarq.readLine();
+            this.arquivo = new FileReader(caminho);
+            buffArquivo = new BufferedReader(this.arquivo);
+            String linha = buffArquivo.readLine();
 
             while (linha != null) {
                 arquivo += (linha);
                 arquivo += " ";
 
-                linha = lerarq.readLine();
+                linha = buffArquivo.readLine();
             }
 
         } catch (FileNotFoundException ex) {
@@ -147,7 +189,59 @@ public class Arquivo {
         return true;
     }
 
-    
-    public gravarArquivo()
- 
+    public void gravarArquivo() {
+        //emanuel
+    }
+
+    public Tabela getTabela(String nome) {
+        table = new Tabela();
+        campo = new Campo();
+        ArrayList<Campo> campos = new ArrayList<>();
+        try {
+            arquivo = new FileReader("Meta.txt");
+            buffArquivo = new BufferedReader(arquivo);
+            String linha = null;
+
+            linha = buffArquivo.readLine();
+
+            while (linha != null) {
+                String splitLinha[] = linha.split(" ");
+                if (splitLinha[0].equals(nome)) {
+                    table.setNome(nome);
+                    for (int i = 1; i < splitLinha.length; i++) {
+                        campo = new Campo();
+                        if (splitLinha[i].equals("integer")) {
+                            campo.setNome(splitLinha[(i - 1)]);
+                            campo.setTamanho(4);
+                            table.setCampo(campo);
+                            campos.add(campo);
+                        } else if (splitLinha[i].equals("varchar")) {
+                            campo.setNome(splitLinha[(i - 1)]);
+                            int tam = Integer.valueOf(splitLinha[i + 1]);
+                            campo.setTamanho(tam);
+                            campo.setTipo("varchar");
+                            table.setCampo(campo);
+                        } else if (splitLinha[i].equals("boolean")) {
+                            campo.setNome(splitLinha[(i - 1)]);
+                            campo.setTamanho(1);
+                            campo.setTipo("boolean");
+                            table.setCampo(campo);
+                        } else if (splitLinha[i].equals("char")) {
+                            campo.setNome(splitLinha[i - 1]);
+                            campo.setTamanho(1);
+                            campo.setTipo("char");
+                            table.setCampo(campo);
+                        }
+                    }
+                }
+                linha = buffArquivo.readLine();
+            }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return table;
+    }
+
 }
