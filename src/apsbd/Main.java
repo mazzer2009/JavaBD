@@ -21,7 +21,7 @@ public class Main {
        Arquivo arq=new Arquivo();
        // System.out.println(arq.lerArquivo("teste.sql"));
 //       arq.lerArquivo("teste.sql");
-       arq.inicializaArquivo("testando");
+       arq.initializeFile("testando");
 //       arq.lerByte_a_Byte();
 //       arq.writeint(2048,true);
        

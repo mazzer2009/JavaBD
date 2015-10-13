@@ -15,8 +15,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,7 +31,7 @@ public class Arquivo {
     Tabela table;
     Campo campo;
 
-    public void inicializaArquivo(String nome) {
+    public void initializeFile(String nome) {
         DataOutputStream dos = null;
         try {
             dos = new DataOutputStream(new FileOutputStream(nome + ".txt"));
@@ -124,7 +122,7 @@ public class Arquivo {
         return c;
     }
 
-    public String lerArquivo(String caminho) {
+    public String readQueryInsert(String caminho) {
         String arquivo = new String();
         String vetor[];
         String vetorTAB[] = null;
@@ -156,7 +154,7 @@ public class Arquivo {
             String aux[];
             vetorTAB = vetor[i].split(" ");
             vetor[i].trim();
-            gravarMetadados(vetorTAB);
+            persistMetadata(vetorTAB);
 //
 //            for (int j = 0; j < vetorTAB.length; j++) {
 //                System.out.println(" " + vetorTAB[j]);
@@ -167,7 +165,7 @@ public class Arquivo {
         return arquivo;
     }
 
-    public boolean gravarMetadados(String[] meta) {
+    public boolean persistMetadata(String[] meta) {
         String table = "";
         for (int i = 2; i < meta.length; i++) {
 
@@ -189,8 +187,7 @@ public class Arquivo {
         return true;
     }
 
-    public void gravarArquivo() {
-        //emanuel
+    public void persistFile() {//emanuel
     }
 
     public Tabela getTabela(String nome) {
