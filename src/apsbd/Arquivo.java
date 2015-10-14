@@ -26,10 +26,10 @@ import java.util.logging.Logger;
  */
 public class Arquivo {
 
-    FileReader arquivo;
-    BufferedReader buffArquivo;
-    Tabela table;
-    Campo campo;
+    private FileReader fileRead;
+    private BufferedReader buffArquivo;
+    private Tabela table;
+    private Campo campo;
 
     public void initializeFile(String nome) {
         DataOutputStream dos = null;
@@ -100,13 +100,13 @@ public class Arquivo {
                     aux += b[j];
 //                    System.out.print(b[j]);
                 }
-                if (i == 0){
+                if (i == 0) {
                     int aux2 = convert.convert2Int(b);
-                c.setQtdeRegistros(aux2);
-                    
-                }else if (i == 1){
+                    c.setQtdeRegistros(aux2);
+
+                } else if (i == 1) {
                     c.setDeslocamentoStByte(b);
-                }else{
+                } else {
                     int aux2 = convert.convert2Int(b);
                     c.setQtdeRegistrosExcluidos(aux2);
                 }
@@ -122,14 +122,14 @@ public class Arquivo {
         return c;
     }
 
-    public String readQueryInsert(String caminho) {
-        String arquivo = new String();
+    public String readQueryCreate(String nomeArq) {
+        String arquivo = "";
         String vetor[];
         String vetorTAB[] = null;
         ArrayList<String> tabelas = new ArrayList<>();
         try {
-            this.arquivo = new FileReader(caminho);
-            buffArquivo = new BufferedReader(this.arquivo);
+            fileRead = new FileReader(nomeArq);
+            buffArquivo = new BufferedReader(fileRead);
             String linha = buffArquivo.readLine();
 
             while (linha != null) {
@@ -140,7 +140,7 @@ public class Arquivo {
             }
 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(Arquivo.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -187,7 +187,30 @@ public class Arquivo {
         return true;
     }
 
-    public void persistFile() {//emanuel
+    public void readQueryInsert(String nomeArq) {
+        String arquivo = "";
+        String vetor[];
+        String vetorTAB[] = null;
+        ArrayList<String> tabelas = new ArrayList<>();
+        try {
+            fileRead = new FileReader(nomeArq);
+            buffArquivo = new BufferedReader(fileRead);
+            String linha = buffArquivo.readLine();
+
+            while (linha != null) {
+                arquivo += (linha);
+                arquivo += " ";
+
+                System.out.println(linha);
+                linha = buffArquivo.readLine();
+            }
+
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     public Tabela getTabela(String nome) {
@@ -195,8 +218,8 @@ public class Arquivo {
         campo = new Campo();
         ArrayList<Campo> campos = new ArrayList<>();
         try {
-            arquivo = new FileReader("Meta.txt");
-            buffArquivo = new BufferedReader(arquivo);
+            fileRead = new FileReader("Meta.txt");
+            buffArquivo = new BufferedReader(fileRead);
             String linha = null;
 
             linha = buffArquivo.readLine();

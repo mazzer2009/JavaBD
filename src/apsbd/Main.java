@@ -41,12 +41,15 @@ public class Main {
 //        }
 
        
-       Cabecalho c = arq.getCabecalho("testando");
-       Convert co = new Convert();
-        System.out.println("Cabe: " + c.getQtdeRegistros() + " " + c.getQtdeRegistrosExcluidos() + " " + co.convert2String(c.getDeslocamentoStByte()));
-        for (int i = 0; i < 4; i++) {
-            System.out.println("Bytes: " + c.getDeslocamentoStByte()[i]);
-        }
+//       Cabecalho c = arq.getCabecalho("testando");
+//       Convert co = new Convert();
+//        System.out.println("Cabe: " + c.getQtdeRegistros() + " " + c.getQtdeRegistrosExcluidos() + " " + co.convert2String(c.getDeslocamentoStByte()));
+//        for (int i = 0; i < 4; i++) {
+//            System.out.println("Bytes: " + c.getDeslocamentoStByte()[i]);
+//        }
+       
+       arq.readQueryInsert("insert.txt");
+       
         
        
     }

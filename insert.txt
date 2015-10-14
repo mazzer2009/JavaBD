@@ -1,0 +1,6 @@
+INSERT INTO employee (id, name, sex, status)
+	values(1, 'Jose da Silva','M',true);
+INSERT INTO student(id, name, sex)
+	values(2, 'João das Neves','M');
+INSERT INTO teacher (id, name, sex, status)
+	values(3, 'Ana Maria F.','F',true);
