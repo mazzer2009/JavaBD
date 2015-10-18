@@ -6,6 +6,7 @@
 package apsbd;
 
 import Utils.Convert;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -18,16 +19,16 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       Arquivo arq=new Arquivo();
-       // System.out.println(arq.lerArquivo("teste.sql"));
+        Arquivo arq = new Arquivo();
+        // System.out.println(arq.lerArquivo("teste.sql"));
 //       arq.lerArquivo("teste.sql");
-       arq.initializeFile("testando");
+        arq.initializeFile("testando");
 //       arq.lerByte_a_Byte();
 //       arq.writeint(2048,true);
-       
-       //teste metodo buscaTabela
-//       Tabela t = arq.buscaTabela("Cliente");
-//        System.out.println("nome" + t.getNome());
+
+//       teste metodo buscaTabela
+//       Tabela t = arq.getTabela("employee");
+//        System.out.println("nome " + t.getNome());
 //        ArrayList<Campo> campos = t.getCampo();
 //        for (Campo campo : campos) {
 //            System.out.println(campo.getNome()+" " + campo.getTipo()+" " + campo.getTamanho());
@@ -39,19 +40,21 @@ public class Main {
 //        for (int i = 0; i < b.length; i++) {
 //            System.out.println(""+b[i]);
 //        }
-
-       
 //       Cabecalho c = arq.getCabecalho("testando");
 //       Convert co = new Convert();
 //        System.out.println("Cabe: " + c.getQtdeRegistros() + " " + c.getQtdeRegistrosExcluidos() + " " + co.convert2String(c.getDeslocamentoStByte()));
 //        for (int i = 0; i < 4; i++) {
 //            System.out.println("Bytes: " + c.getDeslocamentoStByte()[i]);
 //        }
-       
-       arq.readQueryInsert("insert.txt");
-       
+//       
+//       arq.readQueryInsert("insert.txt");
+       //LeFile L = new LeFile("A");  
+        //arq.LeFile("Meta.txt");
         
-       
+        
+        
+        //arq.insertQuery("INSERT INTO student(id, name, sex)values(2, 'João das Neves','M');INSERT INTO employee (id, name, sex, status)values(1, 'Jose da Silva','M',true);");
+        arq.insertQuery("INSERT INTO employee (id, name, sex, status)values(1, 'Jose da Silva','M',true);");
     }
-    
+
 }

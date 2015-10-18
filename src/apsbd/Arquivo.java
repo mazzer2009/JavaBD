@@ -264,4 +264,65 @@ public class Arquivo {
         return table;
     }
 
+    public Tabela insertQuery(String dados) {
+        String valor[];
+        String valor2[] = null;
+        int i;
+        dados = dados.toLowerCase();
+        dados = dados.replaceAll("insert", "");
+        dados = dados.replaceAll("into", "");
+        dados = dados.replaceAll("", "");
+        dados = dados.replaceAll("\\)", ",");
+        dados = dados.replaceAll("\\(", ",");
+        valor = dados.split(";");
+        for (i = 0; i < valor.length; i++) {
+            Tabela tabela = new Tabela();
+            valor2 = valor[i].split(",");
+            valor2[i] = valor2[i].trim();
+//            aux=valor2[i].split(",");
+            int j = 1;
+            int auxiliar = 0;
+            tabela.setNome(valor2[0].trim());
+            while (j < valor2.length) {
+                valor2[j] = valor2[j].trim();
+                if (valor2[j].equals("values")) {
+                   // System.out.println("VALOR DE J: "+j);
+                    auxiliar = j;
+//                    System.out.println(auxiliar);        
+                    break;
+                    //j++;
+                }
+                //campo.setNome(valor2[j]);
+                //tabela.setCampo(campo);
+                j++;
+            }
+            for (j = 1; j < auxiliar; j++) {
+                Campo campo = new Campo();
+                campo.setNome(valor2[j].trim());
+                campo.setValor(valor2[j + auxiliar].trim());
+                tabela.setCampo(campo);
+
+            }
+            int k = 0;
+            Arquivo aux = new Arquivo();
+            ArrayList<Campo> campinsert = new ArrayList<Campo>();
+            ArrayList<Campo> campcreat = new ArrayList<Campo>();
+            Tabela tabaux = aux.getTabela(tabela.getNome());
+            campcreat = tabaux.getCampo();
+            campinsert = tabela.getCampo();
+            for (Campo campoCreate : campcreat) {
+                for (Campo insercao : campinsert) {
+                    if (insercao.getNome().equals(campoCreate.getNome())) {
+                        insercao.setTipo(campoCreate.getTipo());
+                        insercao.setTamanho(campoCreate.getTamanho());
+
+                    }
+
+                }
+            }
+            return tabela;
+        }
+        return null;
+    }
+
 }
