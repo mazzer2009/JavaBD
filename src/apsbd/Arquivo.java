@@ -264,7 +264,7 @@ public class Arquivo {
         return table;
     }
 
-    public Tabela insertQuery(String dados) {
+    public void insertQuery(String dados) {
         String valor[];
         String valor2[] = null;
         int i;
@@ -320,9 +320,10 @@ public class Arquivo {
 
                 }
             }
-            return tabela;
+            //AQUI CHAMA FUNÇAO Q IRA INSERIR
+             //insert(tabela);
+            //return tabela;
         }
-        return null;
     }
 
 }
